@@ -8,7 +8,7 @@ public class ExitHandler extends CommandHandler {
     }
 
     @Override
-    public String handle(String cmd, String arg) {
+    public String handle(String cmd, String arg, Boolean isGui) {
         this.game.changeExitStatus();
         return "Das Programm wurde beendet.";
         

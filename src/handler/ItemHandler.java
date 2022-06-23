@@ -14,17 +14,16 @@ public class ItemHandler extends CommandHandler {
     }
 
     @Override
-    public String handle(String cmd, String arg) {
+    public String handle(String cmd, String arg, Boolean isGui) {
         Player p = this.game.getPlayer();
         Room r = p.getRoom();
         ArrayList<Item> itemsInRoom = r.getItems();
         switch (cmd) {
             case "/viewitems":
-                String itemListOutput = "";
+                String itemListOutput = "Im aktuellen Raum (" + r.getName().toUpperCase() + ") befinden sich folgende Gegenstände:\n";
                 for (Item item : itemsInRoom) {
                     itemListOutput = itemListOutput + "- " + item.getName().toUpperCase() + "\n";
                 }
-                System.out.println("Im aktuellen Raum (" + r.getName().toUpperCase() + ") befinden sich folgende Gegenstände:");
                 return itemListOutput;
             case "/pickup":
                 if (arg.equals("")) {
@@ -36,10 +35,11 @@ public class ItemHandler extends CommandHandler {
                         r.removeItemsFromRoom(item);
                         return item.getName().toUpperCase() + " wurde aufgesammelt.";
                     }
+                    
                 }
                 return arg + " konnte nicht gefunden werden";
             case "/inventory":
-                String inventoryOutput = "";
+                String inventoryOutput = "Folgende Items befinden sich in deinem Inventar: \n";
                 ArrayList<Item> inventory = p.getInventory();
                 if (inventory.isEmpty()) {
                     return "Es sind keine Gegenstände im Inventar vorhanden.";
@@ -47,17 +47,16 @@ public class ItemHandler extends CommandHandler {
                 for (Item item : inventory) {
                     inventoryOutput = inventoryOutput + "- " + item.getName().toUpperCase() + "\n";
                 }
-                System.out.println("Folgende Items befinden sich in deinem Inventar:");
                 return inventoryOutput;
             case "/drop": 
                 if (arg.equals("")) {
-                    return "Bitte gebe einen Gegenstand an. /pickup <Gegenstand>";
+                    return "Bitte gebe einen Gegenstand an. /drop <Gegenstand>";
                 }
                 for (Item item : p.getInventory()) {
                     if (item.getName().equals(arg)) {
                         p.removeItemFromInventory(item);
                         r.addItemToInventory(item);
-                        game.checkGameFinished();
+                        game.checkGameFinished(isGui);
                         return item.getName().toUpperCase() + " wurde in " + r.getName().toUpperCase() + " abgelegt.";
                     }
 

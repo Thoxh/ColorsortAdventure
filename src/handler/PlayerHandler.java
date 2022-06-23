@@ -14,7 +14,7 @@ public class PlayerHandler extends CommandHandler {
     }
 
     @Override
-    public String handle(String cmd, String arg) {
+    public String handle(String cmd, String arg, Boolean isGui) {
         Player p = this.game.getPlayer();
         Room currentRoomOfPlayer = p.getRoom();
         switch (cmd) {

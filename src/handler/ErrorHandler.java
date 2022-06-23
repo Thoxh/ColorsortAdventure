@@ -9,7 +9,7 @@ public class ErrorHandler extends ActionHandler {
     }
 
     @Override
-    public String handle(String cmd, String arg) {
+    public String handle(String cmd, String arg, Boolean isGui) {
         return "Der Befehl wurde nicht gefunden oder besitzt mehr als einen Parameter.";
     }
 

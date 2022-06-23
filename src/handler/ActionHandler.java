@@ -8,7 +8,7 @@ public abstract class ActionHandler {
         this.game = game;
     }
 
-    public abstract String handle(String cmd, String arg);
+    public abstract String handle(String cmd, String arg, Boolean isGui);
 
     public abstract boolean matches(String cmd);
 }
